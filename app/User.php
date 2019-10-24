@@ -40,4 +40,12 @@ class User extends Authenticatable
     public function messages(){
         return $this->hasMany('App\Message', 'sender_id', 'id');
     }
+
+    // public function chatsStarted(){
+    //     return $this->hasmany('App\Chat','user_1_id', 'id');
+    // }
+
+    // public function chatsRecieved(){
+    //     return $this->hasmany('App\Chat','user_2_id', 'id');
+    // }
 }

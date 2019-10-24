@@ -22,3 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/chat', 'ChatController');
+
+Route::get('/friends/requests/send/{id}', 'FriendsController@sendRequest');
+Route::post('/friends/requests/approve', 'FriendsController@acceptRequest');
+Route::delete('/friends/requests/decline', 'FriendsController@declineRequest');
+Route::get('/friends/search/{name}', 'FriendsController@searchByName');

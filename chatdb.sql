@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2019 at 08:37 PM
+-- Generation Time: Oct 24, 2019 at 08:11 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -43,7 +43,8 @@ CREATE TABLE `chats` (
 --
 
 INSERT INTO `chats` (`id`, `user_1_id`, `user_2_id`, `status`, `created_at`, `updated_at`, `last_message_id`) VALUES
-(1, 1, 2, 'Approved', NULL, '2019-10-20 20:03:54', '12');
+(1, 1, 2, 'Approved', '2018-10-22 09:00:09', '2019-10-22 09:00:09', '13'),
+(4, 1, 3, 'Approved', '2019-10-24 17:12:23', '2019-10-24 17:54:51', '17');
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,12 @@ INSERT INTO `messages` (`id`, `sender_id`, `reciever_id`, `chat_id`, `status`, `
 (9, 2, 1, 1, 'Seen', '2019-10-20 18:24:50', '2019-10-20 18:28:25', 'haaa?'),
 (10, 2, 1, 1, 'Seen', '2019-10-20 18:25:27', '2019-10-20 18:28:25', '????'),
 (11, 1, 2, 1, 'Seen', '2019-10-20 18:34:56', '2019-10-20 18:43:15', 'ar mcalia axla'),
-(12, 2, 1, 1, 'Seen', '2019-10-20 20:03:53', '2019-10-20 20:04:46', 'wfwgwe');
+(12, 2, 1, 1, 'Seen', '2019-10-20 20:03:53', '2019-10-20 20:04:46', 'wfwgwe'),
+(13, 1, 2, 1, 'Seen', '2019-10-22 09:00:09', '2019-10-22 09:00:48', 'fvwsgw'),
+(14, 0, 0, 0, 'Unseen', NULL, NULL, 'You can now chat with this user'),
+(15, 0, 0, 0, 'Seen', NULL, NULL, 'You can now chat with this user'),
+(16, 3, 1, 4, 'Seen', '2019-10-24 17:53:30', '2019-10-24 17:54:44', 'Gamarjoba'),
+(17, 1, 3, 4, 'Unseen', '2019-10-24 17:54:50', '2019-10-24 17:54:50', 'zd');
 
 -- --------------------------------------------------------
 
@@ -138,7 +144,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'nika', 'nika@gmail.com', NULL, '$2y$10$OjeHjzKczX/r3AwFMo52BuSUL7ijELkhsF.55r1HV2jxhyfkdk//O', NULL, '2019-10-15 11:07:43', '2019-10-15 11:07:43'),
-(2, 'nika2', 'nika2@gmail.com', NULL, '$2y$10$hlsyLJAP0Ua6m50NeWBQ3OH.rpsZKhQ3yDqrBXKaO9VsCp.DBKDe2', NULL, '2019-10-17 17:21:48', '2019-10-17 17:21:48');
+(2, 'nika2', 'nika2@gmail.com', NULL, '$2y$10$hlsyLJAP0Ua6m50NeWBQ3OH.rpsZKhQ3yDqrBXKaO9VsCp.DBKDe2', NULL, '2019-10-17 17:21:48', '2019-10-17 17:21:48'),
+(3, 'Nika Jamburia', 'nikaj@gmail.com', NULL, '$2y$10$6lVr4gf8MyY4rLBLcJiAKuIlb2oiwJdn2Vo2B/Bog23IqM99.OHHu', NULL, '2019-10-23 08:01:31', '2019-10-23 08:01:31');
 
 --
 -- Indexes for dumped tables
@@ -183,13 +190,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -201,7 +208,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

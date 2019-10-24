@@ -39,7 +39,7 @@
                             <a href="/chat" class="nav-link">Messages</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/friends" class="nav-link">Friend Requests</a>
+                            <a href="/friends" class="nav-link">Friends</a>
                         </li>
                         <li class="nav-item">
                             <a href="/notifications" class="nav-link">Notifications</a>

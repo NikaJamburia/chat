@@ -21,7 +21,14 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $chats = Chat::where('user_1_id', Auth::user()->id)->orwhere('user_2_id', Auth::user()->id)->orderBy('updated_at', 'DESC')->get();
+        $chats = Chat::where(function($query){
+            $query->where('user_1_id', Auth::user()->id)->
+            orwhere('user_2_id', Auth::user()->id);
+        })
+        ->where('status', 'Approved')
+        ->orderBy('updated_at', 'DESC')
+        ->get();
+
         return view('chat.index')->with('chats', $chats);
     }
 
@@ -57,15 +64,15 @@ class ChatController extends Controller
             $reciever_id = $chat->user2->id;
         }
 
-        $msg = new Message();
-        $msg->sender_id = Auth::user()->id;
-        $msg->reciever_id = $reciever_id;
-        $msg->chat_id = $request['chat_id'];
-        $msg->body = $request['body'];
-        $msg->save();
-
-        $chat->last_message_id = $msg->id;
-        $chat->save();
+            $msg = new Message();
+            $msg->sender_id = Auth::user()->id;
+            $msg->reciever_id = $reciever_id;
+            $msg->chat_id = $request['chat_id'];
+            $msg->body = $request['body'];
+            $msg->save();
+    
+            $chat->last_message_id = $msg->id;
+            $chat->save();
 
         return $this->show($request['chat_id']);
     }
@@ -90,7 +97,13 @@ class ChatController extends Controller
         }
 
         $messages = Message::where('chat_id', $id)->limit(20)->get();
-        return $messages;
+        if(count($messages) > 0){
+            return $messages;
+        }
+        else{
+            return "No Messages yet";
+        }
+        
     }
 
     /**

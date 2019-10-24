@@ -8,7 +8,6 @@ window.addEventListener('load',function(){
             return 0;
         }
         else{
-            //document.getElementById('sendForm').submit();
             chat_id = document.getElementById('chat_id').value;
             body = document.getElementById('body').value;
 
@@ -80,7 +79,7 @@ window.addEventListener('load',function(){
         }
     });
 
-
+    
 });
 
 function showChat(event){
@@ -99,40 +98,46 @@ function showChat(event){
 
     xhr.onload = function(){
         if(this.status == 200){
-           var msgs = JSON.parse(this.responseText);
+            if(this.responseText == "No Messages yet"){
+                output = this.responseText;
+            }
+            else{
+                var msgs = JSON.parse(this.responseText);
 
-           output = "";
-           for(var i in msgs){
-               if(msgs[i].sender_id == userid){
-                   output += "<div class='mb-3'>"+
-                                "<div class='clearfix '>"+
-                                    "<div class='bg-primary p-2 float-right ml-auto text-white msg'>"+
-                                        msgs[i].body+
-                                    "</div>  "+
-                                "</div>"+
-                                "<div class='clearfix'>"+
-                                    "<small class=' float-right ml-2'>"+msgs[i].created_at+"</small>"+
-                                "</div>"+
-                                "</div>";
-               }
-               else{
-                output += "<div class='mb-3'>"+
-                            "<div class='clearfix d-flex items-align-content-center'>"+
-                                "<div class='bg-reply p-2 float-left text-dark msg'>"+
-                                    msgs[i].body+
-                                "</div>  "+
-                                
-                            "</div>"+
-                            "<div class='clearfix'>"+
-                                "<small class=' float-left mr-2'>"+msgs[i].created_at+"</small>"+
-                            "</div>"+
-                            "</div>";
-               }
-           }
-           if (msgs[i].sender_id == userid && msgs[i].status == 'Seen'){
-               output += "<div class='clearfix'> <small class='float-right'>"+msgs[i].status+" at "+msgs[i].updated_at+" </small> </div>";
-           }
+                output = "";
+                for(var i in msgs){
+                    if(msgs[i].sender_id == userid){
+                        output += "<div class='mb-3'>"+
+                                     "<div class='clearfix '>"+
+                                         "<div class='bg-primary p-2 float-right ml-auto text-white msg'>"+
+                                             msgs[i].body+
+                                         "</div>  "+
+                                     "</div>"+
+                                     "<div class='clearfix'>"+
+                                         "<small class=' float-right ml-2'>"+msgs[i].created_at+"</small>"+
+                                     "</div>"+
+                                     "</div>";
+                    }
+                    else{
+                     output += "<div class='mb-3'>"+
+                                 "<div class='clearfix d-flex items-align-content-center'>"+
+                                     "<div class='bg-reply p-2 float-left text-dark msg'>"+
+                                         msgs[i].body+
+                                     "</div>  "+
+                                     
+                                 "</div>"+
+                                 "<div class='clearfix'>"+
+                                     "<small class=' float-left mr-2'>"+msgs[i].created_at+"</small>"+
+                                 "</div>"+
+                                 "</div>";
+                    }
+                }
+                if (msgs[i].sender_id == userid && msgs[i].status == 'Seen'){
+                    output += "<div class='clearfix'> <small class='float-right'>"+msgs[i].status+" at "+msgs[i].updated_at+" </small> </div>";
+                }
 
+            }
+                 
             document.getElementById('msg-box').innerHTML = output;
             document.getElementById('msg-box').scrollTop = document.getElementById('msg-box').scrollHeight;
             document.getElementById('chat_id').value = chatId;
@@ -145,4 +150,6 @@ function showChat(event){
 
     xhr.send();
 }
+
+
 
