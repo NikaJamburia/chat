@@ -25,10 +25,10 @@
                     {{$friend->user1->name}}
                     @else
                     {{$friend->user2->name}}
-
+                    @endif
+                    
                     <br>
                     <small>Friends Since: {{date('d-m-y', strtotime($friend->created_at))}} </small>
-                @endif
                 </div>
             @endforeach
         </div>
