@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2019 at 08:11 PM
+-- Generation Time: Oct 26, 2019 at 01:51 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -43,8 +43,11 @@ CREATE TABLE `chats` (
 --
 
 INSERT INTO `chats` (`id`, `user_1_id`, `user_2_id`, `status`, `created_at`, `updated_at`, `last_message_id`) VALUES
-(1, 1, 2, 'Approved', '2018-10-22 09:00:09', '2019-10-22 09:00:09', '13'),
-(4, 1, 3, 'Approved', '2019-10-24 17:12:23', '2019-10-24 17:54:51', '17');
+(1, 1, 2, 'Approved', '2018-10-22 09:00:09', '2019-10-26 09:01:28', '18'),
+(4, 1, 3, 'Approved', '2019-10-24 17:12:23', '2019-10-24 17:54:51', '17'),
+(7, 3, 2, 'Approved', '2019-10-26 10:52:46', '2019-10-26 11:05:03', '19'),
+(9, 1, 4, 'Approved', '2019-10-26 11:33:57', '2019-10-26 11:34:24', '15'),
+(11, 4, 2, 'Approved', '2019-10-26 11:42:14', '2019-10-26 11:47:33', '22');
 
 -- --------------------------------------------------------
 
@@ -83,7 +86,12 @@ INSERT INTO `messages` (`id`, `sender_id`, `reciever_id`, `chat_id`, `status`, `
 (14, 0, 0, 0, 'Unseen', NULL, NULL, 'You can now chat with this user'),
 (15, 0, 0, 0, 'Seen', NULL, NULL, 'You can now chat with this user'),
 (16, 3, 1, 4, 'Seen', '2019-10-24 17:53:30', '2019-10-24 17:54:44', 'Gamarjoba'),
-(17, 1, 3, 4, 'Unseen', '2019-10-24 17:54:50', '2019-10-24 17:54:50', 'zd');
+(17, 1, 3, 4, 'Seen', '2019-10-24 17:54:50', '2019-10-24 18:16:34', 'zd'),
+(18, 1, 2, 1, 'Seen', '2019-10-26 09:01:28', '2019-10-26 11:42:52', 'aaaa'),
+(19, 3, 2, 7, 'Seen', '2019-10-26 11:05:03', '2019-10-26 11:42:51', 'agfehjehe'),
+(20, 2, 4, 11, 'Seen', '2019-10-26 11:43:31', '2019-10-26 11:50:07', 'hrjhnr'),
+(21, 2, 4, 11, 'Seen', '2019-10-26 11:47:31', '2019-10-26 11:50:07', 'aaaafea'),
+(22, 2, 4, 11, 'Seen', '2019-10-26 11:47:33', '2019-10-26 11:50:07', 'gege');
 
 -- --------------------------------------------------------
 
@@ -107,7 +115,33 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_10_15_092657_create_chats_table', 1),
 (4, '2019_10_15_092745_create_messages_table', 1),
 (9, '2019_10_17_221030_add_last_message_to_chats_table', 2),
-(10, '2019_10_17_221203_add_body_to_messages_table', 2);
+(10, '2019_10_17_221203_add_body_to_messages_table', 2),
+(13, '2019_10_26_130240_create_notifications_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `link` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Unseen',
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `body`, `link`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(9, 'friendRequest', 'The user <b>vigaca vigaca</b> Has sent you a friend request', '/friends?action=req', 'Seen', 2, '2019-10-26 11:42:14', '2019-10-26 11:42:34'),
+(10, 'friendRequestAccepted', 'The user <b>nika2</b> Has accepted your friend request', '/chat', 'Seen', 4, '2019-10-26 11:42:44', '2019-10-26 11:43:48');
 
 -- --------------------------------------------------------
 
@@ -145,7 +179,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'nika', 'nika@gmail.com', NULL, '$2y$10$OjeHjzKczX/r3AwFMo52BuSUL7ijELkhsF.55r1HV2jxhyfkdk//O', NULL, '2019-10-15 11:07:43', '2019-10-15 11:07:43'),
 (2, 'nika2', 'nika2@gmail.com', NULL, '$2y$10$hlsyLJAP0Ua6m50NeWBQ3OH.rpsZKhQ3yDqrBXKaO9VsCp.DBKDe2', NULL, '2019-10-17 17:21:48', '2019-10-17 17:21:48'),
-(3, 'Nika Jamburia', 'nikaj@gmail.com', NULL, '$2y$10$6lVr4gf8MyY4rLBLcJiAKuIlb2oiwJdn2Vo2B/Bog23IqM99.OHHu', NULL, '2019-10-23 08:01:31', '2019-10-23 08:01:31');
+(3, 'Nika Jamburia', 'nikaj@gmail.com', NULL, '$2y$10$6lVr4gf8MyY4rLBLcJiAKuIlb2oiwJdn2Vo2B/Bog23IqM99.OHHu', NULL, '2019-10-23 08:01:31', '2019-10-23 08:01:31'),
+(4, 'vigaca vigaca', 'vigaca@gmail.com', NULL, '$2y$10$y0NWxlnDpoh.sMXH1K8j0.x.khG8nxgH3am3t7qEohTJGcB.qpG2W', NULL, '2019-10-26 11:10:00', '2019-10-26 11:10:00');
 
 --
 -- Indexes for dumped tables
@@ -170,6 +205,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -190,25 +231,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -27,3 +27,5 @@ Route::get('/friends/requests/send/{id}', 'FriendsController@sendRequest');
 Route::post('/friends/requests/approve', 'FriendsController@acceptRequest');
 Route::delete('/friends/requests/decline', 'FriendsController@declineRequest');
 Route::get('/friends/search/{name}', 'FriendsController@searchByName');
+
+Route::delete('/notifications', 'NotificationsController@hide');

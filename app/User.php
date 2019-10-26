@@ -41,11 +41,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Message', 'sender_id', 'id');
     }
 
-    // public function chatsStarted(){
-    //     return $this->hasmany('App\Chat','user_1_id', 'id');
-    // }
+    public function recieved(){
+        return $this->hasMany('App\Message', 'reciever_id', 'id');
+    }
 
-    // public function chatsRecieved(){
-    //     return $this->hasmany('App\Chat','user_2_id', 'id');
-    // }
+    public function notifications(){
+        return $this->hasMany('App\Notification')->orderBy('created_at', 'DESC');
+    }
 }

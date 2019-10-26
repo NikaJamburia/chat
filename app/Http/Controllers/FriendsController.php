@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Message;
 use App\Chat;
+use App\Notification;
 use Auth;
 
 class FriendsController extends Controller
@@ -47,6 +48,13 @@ class FriendsController extends Controller
 
             $chat->save();
 
+            $not = new Notification();
+            $not->type = 'friendRequest';
+            $not->body = "The user <b>".Auth::user()->name."</b> Has sent you a friend request";
+            $not->link = "/friends?action=req";
+            $not->user_id = $id;
+            $not->save();
+
             return "Sent";
         }
     }
@@ -56,11 +64,26 @@ class FriendsController extends Controller
         $chat->status = "Approved";
         $chat->save();
 
+        $not = new Notification();
+        $not->type = 'friendRequestAccepted';
+        $not->body = "The user <b>".Chat::find($request['chat_id'])->user2->name."</b> Has accepted your friend request";
+        $not->link = "/chat";
+        $not->user_id = $chat->user_1_id;
+        $not->save();
+
         return redirect('friends');
     }
 
     public function declineRequest(request $request){
         $chat = Chat::find($request['chat_id']);
+        
+        $not = new Notification();
+        $not->type = 'friendRequestDeclined';
+        $not->body = "The user <b>".Chat::find($request['chat_id'])->user2->name."</b> Has declined your friend request";
+        $not->link = "/friends?action=add";
+        $not->user_id = $chat->user_1_id;
+        $not->save();
+        
         $chat->delete();
 
         return redirect('friends');

@@ -144,6 +144,11 @@ function showChat(event){
 
             document.getElementById('body').removeAttribute('disabled');
             document.getElementById('sendMsg').removeAttribute('disabled');
+            try {
+                document.getElementById('msgsBadge').classList.add('fade');
+            } catch (error) {
+                return 0;
+            }
 
         }
     }

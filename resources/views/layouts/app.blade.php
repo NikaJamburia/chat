@@ -36,13 +36,35 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="/chat" class="nav-link">Messages</a>
+                            <a href="/chat" class="nav-link">
+                                Messages
+                                @php
+                                    if(isset(Auth::user()->id)){
+                                        $unseen = Auth::user()->recieved->where('status', 'Unseen');
+                                        if(count($unseen) > 0){
+                                            echo "<span id='msgsBadge' class='badge badge-danger'>".count($unseen)."</span>";
+                                        }
+                                        unset($unseen);
+                                    }
+                                @endphp
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="/friends" class="nav-link">Friends</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/notifications" class="nav-link">Notifications</a>
+                            <a href="/notifications" class="nav-link">
+                                Notifications
+                                @php
+                                    if(isset(Auth::user()->id)){
+                                        $notifications = Auth::user()->notifications->where('status', 'Unseen');
+                                        if(count($notifications) > 0){
+                                            echo "<span id='notsBadge' class='badge badge-danger'>".count($notifications)."</span>";
+                                        }
+                                        unset($notifications);
+                                    }
+                                @endphp
+                            </a>
                         </li>
                     </ul>
 
