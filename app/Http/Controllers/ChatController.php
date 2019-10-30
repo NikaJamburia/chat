@@ -64,17 +64,17 @@ class ChatController extends Controller
             $reciever_id = $chat->user2->id;
         }
 
-            $msg = new Message();
-            $msg->sender_id = Auth::user()->id;
-            $msg->reciever_id = $reciever_id;
-            $msg->chat_id = $request['chat_id'];
-            $msg->body = $request['body'];
-            $msg->save();
-    
-            $chat->last_message_id = $msg->id;
-            $chat->save();
+        $msg = new Message();
+        $msg->sender_id = Auth::user()->id;
+        $msg->reciever_id = $reciever_id;
+        $msg->chat_id = $request['chat_id'];
+        $msg->body = $request['body'];
+        $msg->save();
 
-        return $this->show($request['chat_id']);
+        $chat->last_message_id = $msg->id;
+        $chat->save();
+
+        return Message::where('id', $msg->id)->first();
     }
 
     /**

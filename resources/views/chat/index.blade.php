@@ -27,6 +27,9 @@
                             <small class="last-msg">
                                 @if($chat->last_message->status == 'Unseen' && $chat->last_message->sender_id != Auth::user()->id)
                                     <strong>
+                                    <?="<script>"?>
+                                            <?="document.getElementById('".$chat->id."').setAttribute('unseen', 'yes')"?>
+                                    <?="</script>"?>
                                 @endif
                                 {{$chat->last_message->body}}
                                 @if($chat->last_message->status == 'Unseen' && $chat->last_message->sender_id != Auth::user()->id)
